@@ -1,0 +1,27 @@
+{
+  "appId": "com.sealagom.app",
+  "appName": "SeaLagom",
+  "webDir": "www",
+  "appendUserAgent": "SeaLagomApp/1.0",
+  "backgroundColor": "#030503",
+  "server": {
+    "url": "https://www.sealagom.com/?source=app",
+    "androidScheme": "https",
+    "errorPath": "offline.html",
+    "allowNavigation": ["sealagom.com", "www.sealagom.com", "noon.sealagom.com", "downloads.sealagom.com"]
+  },
+  "android": {
+    "allowMixedContent": false
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 800,
+      "launchAutoHide": true,
+      "backgroundColor": "#030503",
+      "showSpinner": false
+    },
+    "PushNotifications": {
+      "presentationOptions": ["badge", "sound", "alert"]
+    }
+  }
+}

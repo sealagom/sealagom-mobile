@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">SeaLagom</string>
+    <string name="title_activity_main">SeaLagom</string>
+    <string name="package_name">com.sealagom.app</string>
+    <string name="custom_url_scheme">com.sealagom.app</string>
+</resources>

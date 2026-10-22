@@ -1,0 +1,23 @@
+{
+  "name": "sealagom-app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SeaLagom Android (and later iOS) app: the site in a native shell with offline reading and push notifications.",
+  "scripts": {
+    "sync": "cap sync android",
+    "assets": "capacitor-assets generate --android --iconBackgroundColor '#010B07' --iconBackgroundColorDark '#010B07' --splashBackgroundColor '#010B07' --splashBackgroundColorDark '#010B07'"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.0.0",
+    "@capacitor/app": "^8.0.0",
+    "@capacitor/core": "^8.0.0",
+    "@capacitor/network": "^8.0.0",
+    "@capacitor/push-notifications": "^8.0.0",
+    "@capacitor/splash-screen": "^8.0.0",
+    "@capacitor/status-bar": "^8.0.0"
+  },
+  "devDependencies": {
+    "@capacitor/assets": "^3.0.5",
+    "@capacitor/cli": "^8.0.0"
+  }
+}

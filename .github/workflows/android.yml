@@ -1,0 +1,137 @@
+name: Android app
+
+# Builds the SeaLagom app (), runs it in an Android emulator (online and offline
+# screenshots), and pushes the results to the android-ci branch. With the signing secrets
+# set it also builds the signed .aab for Google Play.
+#
+# Secrets (repo Settings > Secrets and variables > Actions), all optional until release:
+#   ANDROID_KEYSTORE_BASE64   the upload key (.jks) as base64
+#   ANDROID_KEYSTORE_PASSWORD, ANDROID_KEY_ALIAS, ANDROID_KEY_PASSWORD
+#   GOOGLE_SERVICES_JSON      Firebase google-services.json (push notifications)
+
+on:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: android-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    env:
+      APP_VERSION_CODE: ${{ github.run_number }}
+      APP_VERSION_NAME: 1.0.${{ github.run_number }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Install and sync
+        working-directory: .
+        run: |
+          npm ci --no-audit --no-fund
+          npx cap sync android
+
+      - name: Firebase config
+        env:
+          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
+        if: env.GOOGLE_SERVICES_JSON != ''
+        run: printf '%s' "$GOOGLE_SERVICES_JSON" > android/app/google-services.json
+
+      - name: Upload key
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+        if: env.ANDROID_KEYSTORE_BASE64 != ''
+        run: |
+          echo "$ANDROID_KEYSTORE_BASE64" | base64 -d > "$RUNNER_TEMP/upload.jks"
+          echo "ANDROID_KEYSTORE_PATH=$RUNNER_TEMP/upload.jks" >> "$GITHUB_ENV"
+
+      - name: Build
+        working-directory: android
+        env:
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          chmod +x gradlew
+          ./gradlew --no-daemon assembleDebug 2>&1 | tee "$RUNNER_TEMP/gradle.txt"
+          if [ -n "${ANDROID_KEYSTORE_PATH:-}" ]; then ./gradlew --no-daemon bundleRelease 2>&1 | tee -a "$RUNNER_TEMP/gradle.txt"; fi
+
+      - name: Free disk space for the emulator
+        run: |
+          sudo rm -rf /usr/share/dotnet /opt/ghc /usr/local/.ghcup /usr/local/share/boost /opt/hostedtoolcache/CodeQL || true
+          df -h /
+
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      - name: Start the emulator
+        id: emulator
+        timeout-minutes: 20
+        continue-on-error: true
+        run: |
+          mkdir -p ci-out
+          bash ci/start-emulator.sh > ci-out/emulator-setup.txt 2>&1
+
+      - name: Run the app in the emulator
+        id: app
+        timeout-minutes: 10
+        if: steps.emulator.outcome == 'success'
+        continue-on-error: true
+        run: |
+          export PATH="$ANDROID_HOME/platform-tools:$PATH"
+          bash ci/emulator-check.sh > ci-out/emulator-check.txt 2>&1
+
+      - name: Keep the files
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sealagom-android-${{ github.run_number }}
+          path: |
+            android/app/build/outputs/apk/debug/app-debug.apk
+            android/app/build/outputs/bundle/release/app-release.aab
+            ci-out/
+          if-no-files-found: ignore
+
+      - name: Results to the android-ci branch
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir -p ci-out
+          cp "$RUNNER_TEMP/gradle.txt" ci-out/gradle.txt 2>/dev/null || true
+          tail -n 120 ci-out/gradle.txt > ci-out/gradle-tail.txt 2>/dev/null || true
+          ls -la android/app/build/outputs/apk/debug/ android/app/build/outputs/bundle/release/ > ci-out/outputs.txt 2>&1 || true
+          {
+            echo "run: ${{ github.run_number }}"
+            echo "commit: ${{ github.sha }}"
+            echo "status: ${{ job.status }}"
+            echo "emulator: ${{ steps.emulator.outcome }}"
+            echo "app run: ${{ steps.app.outcome }}"
+            echo "date: $(date -u +%FT%TZ)"
+          } > ci-out/summary.txt
+          cd ci-out
+          git init -q -b android-ci
+          git add -A
+          git -c user.name="SeaLagom CI" -c user.email="ci@sealagom.com" commit -qm "Android run ${{ github.run_number }} (${{ job.status }})"
+          git push -qf "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" android-ci
