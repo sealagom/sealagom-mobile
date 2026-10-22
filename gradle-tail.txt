@@ -1,0 +1,120 @@
+> Task :capacitor-network:copyDebugJniLibsProjectOnly
+> Task :capacitor-push-notifications:mergeDebugJniLibFolders
+> Task :capacitor-push-notifications:mergeDebugNativeLibs NO-SOURCE
+> Task :capacitor-push-notifications:copyDebugJniLibsProjectOnly
+> Task :capacitor-splash-screen:mergeDebugJniLibFolders
+> Task :capacitor-splash-screen:mergeDebugNativeLibs NO-SOURCE
+> Task :capacitor-status-bar:mergeDebugJniLibFolders
+> Task :capacitor-splash-screen:copyDebugJniLibsProjectOnly
+> Task :capacitor-status-bar:mergeDebugNativeLibs NO-SOURCE
+> Task :capacitor-status-bar:copyDebugJniLibsProjectOnly
+> Task :app:mergeExtDexDebug
+> Task :app:validateSigningDebug
+> Task :app:mergeLibDexDebug
+> Task :app:writeDebugAppMetadata
+> Task :app:mergeDebugNativeLibs
+> Task :app:writeDebugSigningConfigVersions
+
+> Task :app:stripDebugDebugSymbols
+Unable to strip the following libraries, packaging them as they are: libdatastore_shared_counter.so. Run with --info option to learn more.
+
+> Task :capacitor-android:checkDebugAarMetadata
+> Task :capacitor-android:stripDebugDebugSymbols NO-SOURCE
+> Task :capacitor-android:copyDebugJniLibsProjectAndLocalJars
+> Task :capacitor-android:extractDebugAnnotations
+> Task :capacitor-android:extractDeepLinksForAarDebug
+> Task :capacitor-android:mergeDebugGeneratedProguardFiles
+> Task :capacitor-android:mergeDebugConsumerProguardFiles
+> Task :capacitor-android:prepareDebugArtProfile
+> Task :capacitor-android:prepareLintJarForPublish
+> Task :capacitor-android:mergeDebugJavaResource
+> Task :capacitor-app:checkDebugAarMetadata
+> Task :capacitor-android:syncDebugLibJars
+> Task :capacitor-android:bundleDebugAar
+> Task :capacitor-android:assembleDebug
+> Task :capacitor-app:stripDebugDebugSymbols NO-SOURCE
+> Task :capacitor-app:copyDebugJniLibsProjectAndLocalJars
+> Task :capacitor-app:extractDebugAnnotations
+> Task :capacitor-app:extractDeepLinksForAarDebug
+> Task :capacitor-app:mergeDebugGeneratedProguardFiles
+> Task :capacitor-app:mergeDebugConsumerProguardFiles
+> Task :capacitor-app:prepareDebugArtProfile
+> Task :capacitor-app:prepareLintJarForPublish
+> Task :capacitor-app:mergeDebugJavaResource
+> Task :capacitor-cordova-android-plugins:checkDebugAarMetadata
+> Task :capacitor-app:syncDebugLibJars
+> Task :capacitor-app:bundleDebugAar
+> Task :capacitor-app:assembleDebug
+> Task :capacitor-cordova-android-plugins:stripDebugDebugSymbols NO-SOURCE
+> Task :capacitor-cordova-android-plugins:copyDebugJniLibsProjectAndLocalJars
+> Task :capacitor-cordova-android-plugins:extractDebugAnnotations
+> Task :capacitor-cordova-android-plugins:extractDeepLinksForAarDebug
+> Task :capacitor-cordova-android-plugins:mergeDebugGeneratedProguardFiles
+> Task :capacitor-cordova-android-plugins:mergeDebugConsumerProguardFiles
+> Task :capacitor-cordova-android-plugins:prepareDebugArtProfile
+> Task :capacitor-cordova-android-plugins:prepareLintJarForPublish
+> Task :capacitor-cordova-android-plugins:mergeDebugJavaResource
+> Task :capacitor-network:checkDebugAarMetadata
+> Task :capacitor-cordova-android-plugins:syncDebugLibJars
+> Task :capacitor-cordova-android-plugins:bundleDebugAar
+> Task :capacitor-cordova-android-plugins:assembleDebug
+> Task :capacitor-network:stripDebugDebugSymbols NO-SOURCE
+> Task :capacitor-network:copyDebugJniLibsProjectAndLocalJars
+> Task :capacitor-network:extractDebugAnnotations
+> Task :capacitor-network:extractDeepLinksForAarDebug
+> Task :capacitor-network:mergeDebugGeneratedProguardFiles
+> Task :capacitor-network:mergeDebugConsumerProguardFiles
+> Task :capacitor-network:prepareDebugArtProfile
+> Task :capacitor-network:prepareLintJarForPublish
+> Task :capacitor-network:mergeDebugJavaResource
+> Task :capacitor-push-notifications:checkDebugAarMetadata
+> Task :app:packageDebug
+> Task :app:createDebugApkListingFileRedirect
+> Task :app:assembleDebug
+> Task :capacitor-network:syncDebugLibJars
+> Task :capacitor-network:bundleDebugAar
+> Task :capacitor-network:assembleDebug
+> Task :capacitor-push-notifications:stripDebugDebugSymbols NO-SOURCE
+> Task :capacitor-push-notifications:copyDebugJniLibsProjectAndLocalJars
+> Task :capacitor-push-notifications:extractDebugAnnotations
+> Task :capacitor-push-notifications:extractDeepLinksForAarDebug
+> Task :capacitor-push-notifications:mergeDebugGeneratedProguardFiles
+> Task :capacitor-push-notifications:mergeDebugConsumerProguardFiles
+> Task :capacitor-push-notifications:prepareDebugArtProfile
+> Task :capacitor-push-notifications:prepareLintJarForPublish
+> Task :capacitor-push-notifications:mergeDebugJavaResource
+> Task :capacitor-splash-screen:checkDebugAarMetadata
+> Task :capacitor-push-notifications:syncDebugLibJars
+> Task :capacitor-push-notifications:bundleDebugAar
+> Task :capacitor-push-notifications:assembleDebug
+> Task :capacitor-splash-screen:stripDebugDebugSymbols NO-SOURCE
+> Task :capacitor-splash-screen:copyDebugJniLibsProjectAndLocalJars
+> Task :capacitor-splash-screen:extractDebugAnnotations
+> Task :capacitor-splash-screen:extractDeepLinksForAarDebug
+> Task :capacitor-splash-screen:mergeDebugGeneratedProguardFiles
+> Task :capacitor-splash-screen:mergeDebugConsumerProguardFiles
+> Task :capacitor-splash-screen:prepareDebugArtProfile
+> Task :capacitor-splash-screen:prepareLintJarForPublish
+> Task :capacitor-splash-screen:mergeDebugJavaResource
+> Task :capacitor-status-bar:checkDebugAarMetadata
+> Task :capacitor-splash-screen:syncDebugLibJars
+> Task :capacitor-splash-screen:bundleDebugAar
+> Task :capacitor-splash-screen:assembleDebug
+> Task :capacitor-status-bar:stripDebugDebugSymbols NO-SOURCE
+> Task :capacitor-status-bar:copyDebugJniLibsProjectAndLocalJars
+> Task :capacitor-status-bar:extractDebugAnnotations
+> Task :capacitor-status-bar:extractDeepLinksForAarDebug
+> Task :capacitor-status-bar:mergeDebugGeneratedProguardFiles
+> Task :capacitor-status-bar:mergeDebugConsumerProguardFiles
+> Task :capacitor-status-bar:prepareDebugArtProfile
+> Task :capacitor-status-bar:prepareLintJarForPublish
+> Task :capacitor-status-bar:mergeDebugJavaResource
+> Task :capacitor-status-bar:syncDebugLibJars
+> Task :capacitor-status-bar:bundleDebugAar
+> Task :capacitor-status-bar:assembleDebug
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run_4-1792705087964.json
+
+[Incubating] Problems report is available at: file:///home/runner/work/sealagom-mobile/sealagom-mobile/android/build/reports/problems/problems-report.html
+
+BUILD SUCCESSFUL in 1m 51s
+245 actionable tasks: 245 executed
